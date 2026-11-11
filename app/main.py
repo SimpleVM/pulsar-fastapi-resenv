@@ -3,6 +3,7 @@ import logging
 import os
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from jinja2 import Environment, FileSystemLoader
 from datetime import datetime
 
@@ -17,8 +18,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger("pulsar.resenv")
 
-app = FastAPI(title="PULSAR BOYC Information Service")
-
 # Resolve paths relative to the repository root so the app behaves the same
 # regardless of the current working directory (e.g. when run behind a
 # reverse proxy such as OpenResty).
@@ -26,6 +25,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Setup Jinja2 for templating
 env = Environment(loader=FileSystemLoader(os.path.join(BASE_DIR, "templates")))
+
+app = FastAPI(title="PULSAR BOYC Information Service")
+
+# Serve static assets (CSS/JS) from /static/...
+app.mount(
+    "/static",
+    StaticFiles(directory=os.path.join(BASE_DIR, "static")),
+    name="static",
+)
 
 STATE_FILE = os.path.join(os.path.dirname(__file__), "state.json")
 
@@ -89,7 +97,7 @@ def load_state():
 
 @app.get("/", response_class=HTMLResponse)
 async def root():
-    """Display a welcome page with PULSAR Galaxy configuration information."""
+    """Display the details needed to register the cluster with Galaxy (PULSAR)."""
     template = env.get_template("index.html")
 
     pulsar_config, service_state = load_state()
@@ -97,9 +105,9 @@ async def root():
     current_year = datetime.now().year
 
     content = template.render(
-        title="PULSAR Galaxy Configuration",
-        welcome_message="PULSAR Galaxy Configuration",
-        description="Configure and manage your PULSAR Galaxy resources",
+        title="PULSAR BOYC - Connect your cluster to Galaxy",
+        welcome_message="PULSAR BOYC",
+        description="Information to register your Slurm cluster with Galaxy (bring your own compute)",
         current_year=current_year,
         pulsar_config=pulsar_config,
         service_state=service_state,

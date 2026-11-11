@@ -1,9 +1,22 @@
 # PULSAR BOYC resenv information service
 
-Webservice that shows PULSAR BOYC related information (Galaxy credentials and
-resource limits) and, when running on a Slurm node, live cluster capacity.
-It is designed to be deployed to **per-user machines** behind an **OpenResty
-reverse proxy** that performs authentication/authorization.
+Webservice that shows the information needed to **connect a Slurm cluster in
+SimpleVM to Galaxy** via [PULSAR](https://galaxyproject.org/cloudman/services/pulsar/)
+(Galaxy's "bring your own compute" / remote job execution mechanism, instead
+of a dedicated Galaxy cloud site).
+
+PULSAR is a standalone light-weight server that handles remote Galaxy job
+execution and exchanges the requisite provenance information. This resenv
+displays, for the user's own cluster, the details required to register and
+point Galaxy at it:
+
+- The **Galaxy (PULSAR) credentials** to use.
+- The **resource limits** (max CPUs, RAM, GPUs) the user is allowed to use.
+- When running on a Slurm node, the **live cluster capacity** retrieved from
+  Slurm (`sinfo`) - the single-node maximum and the total across all nodes.
+
+It is deployed to **per-user machines** behind the FORC/OpenResty reverse
+proxy that performs authentication/authorization.
 
 > **Security model:** the FastAPI app performs **no authentication**. The
 > FORC/OpenResty reverse proxy is the sole security gate and proxies to the
@@ -39,10 +52,11 @@ installed as a supervised `systemd` service on port **8080**.
 
 **Access control is provided by the FORC/OpenResty reverse proxy**, not by the
 app. The FORC backend template
-[`pulsar%v01.conf`](https://github.com/SimpleVM/simpleVMWebGateway/blob/master/examples/templates/pulsar%v01.conf)
-performs openidc authentication + owner-only authorization and proxies the
-backend (stripping the `/<key_url>/` prefix) to the app. The app performs no
-authentication of its own.
+[`pulsar%v01.conf`](https://github.com/deNBI/simpleVMWebGateway/blob/master/examples/templates/pulsar%v01.conf)
+in the public [`deNBI/simpleVMWebGateway`](https://github.com/deNBI/simpleVMWebGateway)
+repository performs openidc authentication + owner-only authorization and
+proxies the backend (stripping the `/<key_url>/` prefix) to the app. The app
+performs no authentication of its own.
 
 ```
 FORC/OpenResty (openidc + owner auth)
@@ -76,6 +90,6 @@ provisioning code. All Ansible provisioning lives in the
 └── README.md
 ```
 
-> The FORC backend template lives in the
-> [`simpleVMWebGateway`](https://github.com/SimpleVM/simpleVMWebGateway)
+> The FORC backend template lives in the public
+> [`deNBI/simpleVMWebGateway`](https://github.com/deNBI/simpleVMWebGateway)
 > repository: `examples/templates/pulsar%v01.conf`.

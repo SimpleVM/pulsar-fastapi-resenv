@@ -5,95 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #144C4D;
-            --secondary-color: #24888A;
-            --bg-light: #fdfdfd;
-            --accent-color: #34C7C9;
-        }
-        body {
-            background-color: var(--bg-light);
-        }
-        .navbar {
-            background-color: var(--primary-color);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .navbar-brand {
-            color: white !important;
-            font-weight: 600;
-        }
-        .card {
-            border: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: translateY(-2px);
-        }
-        .stat-card {
-            border-left: 4px solid var(--primary-color);
-        }
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-        .stat-label {
-            color: var(--secondary-color);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .hero-section {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-            color: white;
-            padding: 3rem 0;
-            margin-bottom: 2rem;
-        }
-        .config-card {
-            border: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: transform 0.2s;
-        }
-        .config-card:hover {
-            transform: translateY(-2px);
-        }
-        .config-value {
-            font-family: 'Courier New', monospace;
-            font-size: 1.2rem;
-            background-color: var(--bg-light);
-            padding: 0.5rem;
-            border-radius: 4px;
-            word-break: break-all;
-        }
-        .copy-btn {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-        .config-card:hover .copy-btn,
-        .config-card:focus-within .copy-btn {
-            opacity: 1;
-        }
-        .copy-success {
-            color: #28a745;
-            font-size: 0.8rem;
-        }
-        .feature-icon {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        footer {
-            background-color: #343a40;
-            color: #adb5bd;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-    </style>
+    <link href="static/css/style.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation -->
@@ -153,8 +65,8 @@
         <!-- Dashboard Stats -->
         <div class="row" id="dashboard">
             <div class="col-12">
-                <h2 class="mb-4 fw-bold">PULSAR Galaxy Configuration</h2>
-                <p class="text-muted mb-4">Configuration parameters for your PULSAR Galaxy environment</p>
+                <h2 class="mb-4 fw-bold">Galaxy Registration Details</h2>
+                <p class="text-muted mb-4">Credentials and resource limits for connecting your cluster to Galaxy via PULSAR</p>
             </div>
 
             {% if pulsar_config %}
@@ -167,7 +79,7 @@
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                                 <circle cx="12" cy="7" r="4"/>
                             </svg>
-                            Galaxy Username
+                            PULSAR Username
                         </span>
                     </div>
                     <div class="card-body">
@@ -193,7 +105,7 @@
                                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                                 <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                             </svg>
-                            Password
+                            PULSAR Password
                         </span>
                     </div>
                     <div class="card-body">
@@ -221,7 +133,7 @@
                                 <line x1="6" y1="6" x2="6.01" y2="6"/>
                                 <line x1="6" y1="18" x2="6.01" y2="18"/>
                             </svg>
-                            Max CPUs
+                            Allowed Max CPUs
                         </span>
                     </div>
                     <div class="card-body">
@@ -246,7 +158,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
                                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                             </svg>
-                            Max RAM (GiB)
+                            Allowed Max RAM (GiB)
                         </span>
                     </div>
                     <div class="card-body">
@@ -280,7 +192,7 @@
                                 <line x1="1" y1="9" x2="4" y2="9"/>
                                 <line x1="1" y1="14" x2="4" y2="14"/>
                             </svg>
-                            Max GPUs
+                            Allowed Max GPUs
                         </span>
                     </div>
                     <div class="card-body">
@@ -304,11 +216,11 @@
                         <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
                     </svg>
                     {% if service_state == 'UNAVAILABLE' %}
-                    <h4 class="fw-bold">Configuration Not Available</h4>
-                    <p class="mb-0">The configuration data is not present yet. The service state is <strong>UNAVAILABLE</strong> &mdash; please contact your administrator or wait for the service to be provisioned.</p>
+                    <h4 class="fw-bold">Registration Details Not Available</h4>
+                    <p class="mb-0">The information needed to register your cluster with Galaxy is not present yet. The service state is <strong>UNAVAILABLE</strong> &mdash; please contact your administrator or wait for the service to be provisioned.</p>
                     {% else %}
-                    <h4 class="fw-bold">Configuration Not Found</h4>
-                    <p class="mb-0">The information for further configuration steps are not present yet. Please contact your administrator or wait for the service to be provisioned.</p>
+                    <h4 class="fw-bold">Registration Details Not Found</h4>
+                    <p class="mb-0">The details for connecting your cluster to Galaxy are not present yet. Please contact your administrator or wait for the service to be provisioned.</p>
                     {% endif %}
                 </div>
             </div>
@@ -328,7 +240,7 @@
                     </svg>
                     Retrieved from Slurm
                 </h2>
-                <p class="text-muted mb-4">Live cluster capacity &mdash; single node maximum and total across all {{ slurm_summary.node_count }} node(s).</p>
+                <p class="text-muted mb-4">Live capacity of your cluster &mdash; single node maximum and total across all {{ slurm_summary.node_count }} node(s).</p>
 
                 <!-- CPUs -->
                 <div class="col-lg-4 mb-4">
@@ -411,23 +323,23 @@
                             <path d="M4 19.5V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14.5"/>
                             <path d="M6.5 2H20v20H6.5a2 2 0 0 0-2 2H2"/>
                         </svg>
-                        Quick Start Guide
+                        How to register your cluster in Galaxy
                     </h2>
-                    <p class="text-muted">Follow these steps to use the configuration provided above in your UseGalaxy PULSAR environment:</p>
+                    <p class="text-muted">Use the details above to register your Slurm cluster as an external compute resource in Galaxy (bring your own compute) &mdash; no dedicated Galaxy cloud site required:</p>
                     <div class="row g-4 mt-2">
                         <div class="col-md-6">
                             <div class="d-flex align-items-start mb-3">
                                 <div class="badge bg-primary rounded-circle me-3 flex-shrink-0" style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">1</div>
                                 <div>
-                                    <strong>Copy Credentials</strong><br>
-                                    Use the copy buttons on the dashboard to copy the <code>Galaxy Username</code> and <code>Password</code>.
+                                    <strong>Copy the PULSAR credentials</strong><br>
+                                    Use the copy buttons to grab the <code>PULSAR Username</code> and <code>PULSAR Password</code> for your cluster.
                                 </div>
                             </div>
                             <div class="d-flex align-items-start mb-3">
                                 <div class="badge bg-primary rounded-circle me-3 flex-shrink-0" style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">2</div>
                                 <div>
-                                    <strong>Open UseGalaxy</strong><br>
-                                    Log in to your designated UseGalaxy PULSAR instance.
+                                    <strong>Open your Galaxy instance</strong><br>
+                                    Log in to your Galaxy instance where you want to run jobs on this cluster.
                                 </div>
                             </div>
                         </div>
@@ -435,21 +347,21 @@
                             <div class="d-flex align-items-start mb-3">
                                 <div class="badge bg-primary rounded-circle me-3 flex-shrink-0" style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">3</div>
                                 <div>
-                                    <strong>Configure Connection</strong><br>
-                                    Navigate to the connection settings and paste the credentials into the respective fields.
+                                    <strong>Add the PULSAR endpoint</strong><br>
+                                    In Galaxy, configure the cluster as a remote / PULSAR execution target and paste the credentials into the respective fields.
                                 </div>
                             </div>
                             <div class="d-flex align-items-start mb-3">
                                 <div class="badge bg-primary rounded-circle me-3 flex-shrink-0" style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">4</div>
                                 <div>
-                                    <strong>Verify Quotas</strong><br>
-                                    Ensure the <code>Max CPUs</code>, <code>RAM</code>, and <code>GPUs</code> match your assigned resource limits.
+                                    <strong>Match your resource limits</strong><br>
+                                    Keep your job requests within the <code>Allowed Max CPUs</code>, <code>RAM</code> and <code>GPUs</code> shown above.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="alert alert-info mt-4 mb-0">
-                        <small><strong>Tip:</strong> If you encounter connection issues, please verify that your network allows traffic to the PULSAR gateway and that the credentials have not expired.</small>
+                        <small><strong>Tip:</strong> If Galaxy cannot reach your cluster, verify that your network allows traffic to the PULSAR service and that the credentials above are current.</small>
                     </div>
                     </div>
                 </div>
@@ -470,53 +382,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-
-
-        // Copy to clipboard function
-        function copyToClipboard(elementId, button) {
-            const element = document.getElementById(elementId);
-            const text = element.textContent;
-            const successId = elementId + '-success';
-
-            navigator.clipboard.writeText(text).then(() => {
-                const successMsg = document.getElementById(successId);
-                const originalText = successMsg.textContent;
-                successMsg.textContent = 'Copied!';
-                successMsg.style.opacity = '1';
-
-                setTimeout(() => {
-                    successMsg.textContent = '';
-                    successMsg.style.opacity = '0';
-                }, 2000);
-
-                const originalBtnHtml = button.innerHTML;
-                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #28a745;"><polyline points="20 6 9 17 4 12"/></svg>';
-
-                setTimeout(() => {
-                    button.innerHTML = originalBtnHtml;
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                const successMsg = document.getElementById(successId);
-                successMsg.textContent = 'Copy failed';
-                successMsg.style.color = '#dc3545';
-            });
-        }
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+    <script src="static/js/main.js"></script>
 </body>
 </html>
