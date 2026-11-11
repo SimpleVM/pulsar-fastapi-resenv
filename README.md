@@ -1,4 +1,4 @@
-# PULSAR BOYC resenv information service
+# PULSAR BYOC resenv information service
 
 Webservice that shows the information needed to **connect a Slurm cluster in
 SimpleVM to Galaxy** via [PULSAR](https://galaxyproject.org/cloudman/services/pulsar/)

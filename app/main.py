@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Setup Jinja2 for templating
 env = Environment(loader=FileSystemLoader(os.path.join(BASE_DIR, "templates")))
 
-app = FastAPI(title="PULSAR BOYC Information Service")
+app = FastAPI(title="PULSAR BYOC Information Service")
 
 # Serve static assets (CSS/JS) from /static/...
 app.mount(
@@ -105,8 +105,8 @@ async def root():
     current_year = datetime.now().year
 
     content = template.render(
-        title="PULSAR BOYC - Connect your cluster to Galaxy",
-        welcome_message="PULSAR BOYC",
+        title="PULSAR BYOC - Connect your cluster to Galaxy",
+        welcome_message="PULSAR BYOC",
         description="Information to register your Slurm cluster with Galaxy (bring your own compute)",
         current_year=current_year,
         pulsar_config=pulsar_config,
@@ -119,7 +119,7 @@ async def root():
 @app.get("/health")
 async def health_check():
     """Health check endpoint for monitoring."""
-    return {"status": "healthy", "service": "pulsar-boyc-info"}
+    return {"status": "healthy", "service": "pulsar-BYOC-info"}
 
 
 if __name__ == "__main__":
